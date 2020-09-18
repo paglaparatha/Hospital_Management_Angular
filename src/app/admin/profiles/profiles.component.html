@@ -1,0 +1,202 @@
+<main>
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="text-center">Add New Receptionist</h4>
+        <form
+          class="form-group"
+          (ngSubmit)="onAddReceptionist(receptionistForm)"
+          #receptionistForm="ngForm"
+        >
+          <div class="row">
+            <div class="col-md-2">
+              <span>Enter Name*</span>
+              <input
+                type="text"
+                name="name"
+                required
+                ngModel
+                placeholder="Enter Name*"
+                class="form-control"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <span>Enter Email*</span>
+              <input
+                type="email"
+                name="email"
+                required
+                ngModel
+                email
+                placeholder="Enter Email*"
+                class="form-control"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <span>Enter D.O.B.*</span>
+              <input
+                type="date"
+                name="dob"
+                required
+                ngModel
+                placeholder="Enter DOB"
+                class="form-control"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <span>Enter Gender</span>
+              <select name="gender" required ngModel class="form-control">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <br />
+            </div>
+            <div class="col-md-2">
+              <input
+                type="submit"
+                value="Add"
+                class="btn btn-primary"
+                [disabled]="!receptionistForm.valid"
+              />
+              <br />
+            </div>
+          </div>
+        </form>
+      </div>
+      <hr />
+      <div class="col-md-12">
+        <h4 class="text-center">All Receptionists</h4>
+        <form
+          class="form-group"
+          (ngSubmit)="onSearchReceptionists(searchMedicineForm)"
+          #searchMedicineForm="ngForm"
+        >
+          <div class="col-12">
+            <div class="row">
+              <div class="col-8">
+                <br />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="search"
+                  required
+                  ngModel
+                  placeholder="Enter Receptionist Name*"
+                />
+              </div>
+              <div class="col-4">
+                <br />
+                <input
+                  type="submit"
+                  value="Search"
+                  class="btn btn-primary"
+                  [disabled]="!searchMedicineForm.valid"
+                />
+                &nbsp;
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="onGetReceptionists()"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <hr />
+        <form
+          class="form-group"
+          (ngSubmit)="onUpdateReceptionist(f)"
+          #f="ngForm"
+          *ngFor="let receptionist of receptionists"
+        >
+          <div class="row">
+            <div class="col-md-2">
+              <input
+                type="text"
+                name="name"
+                required
+                ngModel
+                placeholder="Enter Name*"
+                class="form-control"
+                [(ngModel)]="receptionist.name"
+              />
+              <input
+                type="hidden"
+                name="id"
+                required
+                [(ngModel)]="receptionist.id"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <input
+                type="email"
+                name="email"
+                required
+                ngModel
+                email
+                placeholder="Enter Email*"
+                class="form-control"
+                [(ngModel)]="receptionist.email"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <input
+                type="date"
+                name="dob"
+                required
+                ngModel
+                placeholder="Enter DOB"
+                class="form-control"
+                [(ngModel)]="receptionist.dob"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <select
+                name="gender"
+                required
+                ngModel
+                class="form-control"
+                [(ngModel)]="receptionist.gender"
+              >
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <br />
+            </div>
+            <div class="col-md-2">
+              <input
+                type="submit"
+                value="Update"
+                class="btn btn-primary"
+                [disabled]="!f.valid"
+              />
+              <br />
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-danger"
+                [attr.data-id]="receptionist.id"
+                type="button"
+                (click)="onDeleteReceptionist($event)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,120 @@
+<ng-container *ngIf="user">
+  <div class="container">
+    <h2 class="text-center">Welcome {{ user.name }}</h2>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4 class="text-center">Edit Profile <fa-icon [icon]="faUser"></fa-icon></h4>
+        <hr />
+        <form
+              class="form-group"
+              (ngSubmit)="onUpdateProfile(fUpdate)"
+              #fUpdate="ngForm"
+            >
+              <input
+                type="text"
+                name="name"
+                required
+                ngModel
+                [(ngModel)]="user.name"
+                placeholder="Enter Name*"
+                class="form-control"
+              />
+              <br />
+              <input
+                type="email"
+                name="email"
+                required
+                ngModel
+                email
+                [(ngModel)]="user.email"
+                placeholder="Enter Email*"
+                class="form-control"
+              />
+              <br />
+              <select
+                name="gender"
+                required
+                ngModel
+                [(ngModel)]="user.gender"
+                class="form-control"
+              >
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <br />
+              <input
+                type="submit"
+                value="Update"
+                class="btn btn-primary"
+                [disabled]="!fUpdate.valid"
+              />
+            </form>
+      </div>
+      <div class="col-md-5">
+        <h4 class="text-center">
+          Change Password <fa-icon [icon]="faKey"></fa-icon>
+        </h4>
+        <hr />
+        <form
+          class="form-group"
+          (ngSubmit)="onChangePassword(fPass)"
+          #fPass="ngForm"
+        >
+          <div class="row">
+            <div class="col-md-12">
+              <input
+                type="password"
+                name="cpass"
+                required
+                ngModel
+                placeholder="Enter Current Password*"
+                class="form-control"
+              />
+              <br />
+            </div>
+            <div class="col-md-6">
+              <input
+                type="password"
+                name="npass1"
+                [(ngModel)]="npass1"
+                required
+                ngModel
+                placeholder="Enter New Password*"
+                class="form-control"
+              />
+              <br />
+            </div>
+            <div class="col-md-6">
+              <input
+                type="password"
+                name="npass2"
+                [(ngModel)]="npass2"
+                required
+                ngModel
+                placeholder="Confirm New Password*"
+                class="form-control"
+              />
+              <br />
+            </div>
+            <div class="col-md-12">
+              <div *ngIf="npass1 !== npass2">
+                <div class="alert alert-danger">Passwords don't match!</div>
+                <br />
+              </div>
+              <input
+                type="submit"
+                *ngIf="npass1 === npass2"
+                value="Update"
+                class="btn btn-primary"
+                [disabled]="!fPass.valid"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>

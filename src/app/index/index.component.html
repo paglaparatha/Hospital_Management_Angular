@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<div class="slider">
+  <ngb-carousel>
+    <ng-template ngbSlide *ngFor="let slider of sliders">
+      <img
+        class="slide-img"
+        [src]="baseUrl+slider.image"
+      />
+    </ng-template>
+  </ngb-carousel>
+</div>
+
+<main>
+  <div class="jumbotron">
+    <div class="container">
+      <div class="text-center">
+        <h3>Welcome To Online Hospital Management System</h3>
+        <div class="container">
+          <p class="text-justify">
+            Hospitalmanagement System houses a unique portfolio of services that
+            keep healthcare professionals abreast of the latest and most significant
+            developments within their clinical, surgical or management area.
+
+            Covering all aspects of the hospital environment, Hospitalmanagement
+            System provides both clinical and senior administrative staff with
+            instant access to a comprehensive reference source introducing
+            technologies, services and procedures our audience can employ to improve
+            the management of their facilities.
+
+            The site is complemented by two specialist journals, Practical Patient
+            Care and Medical Imaging Technology concentrating on woundcare and
+            infection control and medical imaging and radiology respectively.
+
+            Both titles are circulated to an audience that includes not only
+            clinicians with the authority to recommend new products, but also the
+            managerial staff responsible for purchasing. By reaching both ends of
+            the procurement chain we offer our advertisers the best possible
+            platform from which to sell their services.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<app-footer></app-footer>

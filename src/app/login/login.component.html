@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<main>
+  <div class="col-12">
+    <h3 class="text-center">Welcome</h3>
+    <p class="text-center">Please enter your credentials to proceed</p>
+    <div class="container">
+      <div class="col-md-6">
+        <form class="form-group" (ngSubmit)="onLogin(form)" #form="ngForm">
+          <h4 class="text-center">Login</h4>
+          <input
+            type="email"
+            name="email"
+            email
+            ngModel
+            required
+            placeholder="Enter Patient email*"
+            class="form-control"
+          />
+          <br />
+          <input
+            type="password"
+            name="password"
+            ngModel
+            required
+            placeholder="Enter Password*"
+            class="form-control"
+          />
+          <br />
+          <input type="submit" value="Login" class="btn btn-primary" />
+          <br />
+          <p class="text-center">
+            <a href="#" [routerLink]="['/']">Forgot Password</a>
+            <br />
+            <em
+              >Don't have an account?
+              <a href="#" [routerLink]="['/sign-up']">Sign up</a> here</em
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

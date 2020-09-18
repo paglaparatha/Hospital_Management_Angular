@@ -1,0 +1,68 @@
+main {
+  padding-top: 4rem;
+  background: linear-gradient(to bottom, rgba(251, 249, 237, 0.5) 0%, rgba(251, 234, 248, 0.5) 100%), url(/assets/staff-login.jpg) no-repeat center center/cover;
+  min-height: calc(100vh - 4rem);
+  .full-row{
+    width: 100%;
+    margin: auto;
+    height: 95vh;
+  }
+  .col-md-4{
+    margin: auto;
+    height: 100%;
+    background: white;
+    box-shadow: 10px 0px 10px 1px #aaaaaa;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .container{
+      margin: auto;
+    }
+      .custom-row{
+          padding: 0.5rem 1.5rem;
+          button{
+              flex: 1;
+              border-radius: 0.5rem 3rem;
+              border: none;
+              outline: none;
+              opacity: 0.7;
+              transition: all 0.3s ease-in-out;
+              color: whitesmoke;
+              &:hover{
+                  opacity: 1;
+                  box-shadow: 0.1rem 0.3rem 0.3rem rgba($color: #000000, $alpha: 0.3);
+              }
+              &:nth-of-type(1){
+                  background: dodgerblue;
+              }
+              &:nth-of-type(2){
+                  background: deeppink;
+              }
+              &:nth-of-type(3){
+                  background: teal;
+              }
+          }
+          .active{
+              opacity: 1;
+              box-shadow: 0.1rem 0.3rem 0.3rem rgba($color: #000000, $alpha: 0.3);
+          }
+      }
+      form{
+          background: #FFDADB;
+          padding: 2rem;
+          border-radius: 0.5rem 3rem;
+          box-shadow: 0.3rem 0.5rem 0.5rem rgba($color: #000000, $alpha: 0.3);
+      }
+  }
+}
+.col-md-8{
+  margin: auto;
+}
+@media (max-width: 767px){
+  .col-md-4{
+    background: transparent !important;
+  }
+  .col-md-8{
+    display: none;
+  }
+}

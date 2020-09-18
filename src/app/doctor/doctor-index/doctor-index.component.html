@@ -1,0 +1,89 @@
+<div class="col-lg-12">
+  <ng-container *ngIf="user">
+    <h2 class="text-center">Welcome Dr. {{ user.name }}</h2>
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="list-group">
+          <div
+            class="alert alert-info"
+            role="alert"
+            (click)="onSetAppointment(app)"
+            *ngFor="let app of myAppointments"
+          >
+            <h5>{{ app.patient.name }}</h5>
+            <strong>Id: {{ app.patientId }}</strong
+            ><br />
+            <strong>Time: {{ app.time }}</strong>
+          </div>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+        <ng-container *ngIf="appointment">
+          <h2 class="text-center">
+            Prescription for {{ appointment.patient.name }} ({{
+              appointment.patientId
+            }})
+          </h2>
+          <div class="alert alert-danger" *ngIf="appointment.remarks !== ''">
+            <marquee>
+              {{ appointment.remarks }}
+              <ng-container *ngFor="let remark of prevRemarks">&nbsp;&nbsp;{{ remark.remarks }}&nbsp;&nbsp;</ng-container>
+            </marquee>
+          </div>
+
+          <form [formGroup]="myForm" class="form-group" novalidate (ngSubmit)="save(myForm)">
+            <input type="hidden" readonly [(ngModel)]="appointment.patientId" formControlName="patientId" />
+            <input type="hidden" readonly formControlName="appointmentId" [(ngModel)]="appointment.id">
+            <textarea rows="2" formControlName="doctorRemark" class="form-control" placeholder="Enter Remark if any"></textarea>
+            <div formArrayName="prescription">
+              <div
+                *ngFor="
+                  let row of myForm.get('prescription')['controls'];
+                  let i = index
+                ">
+                <br>
+                <div class="row">
+                  <div class="container">
+                    <button type="button" class="btn btn-success" (click)="addMedField()"><fa-icon [icon]="faPlus"></fa-icon></button>
+                  &nbsp;
+                  <button class="btn btn-danger" *ngIf="myForm.get('prescription')['controls'].length > 1"
+                    (click)="removeMedField(i)"><fa-icon [icon]="faTimes"></fa-icon></button>
+                  </div>
+                </div>
+                <br>
+
+                <div [formGroupName]="i" class="row">
+                  <div class="col-md-3">
+                    <select formControlName="name" class="form-control" (change)="onGetTypes($event, type)" #name>
+                      <option value="" selected disabled>Select Medicine</option>
+                      <option [value]="med.name" *ngFor="let med of medicines">{{ med.name }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <select formControlName="type" class="form-control" (change)="onGetMedicine(name.value, type.value)" #type>
+                      <option value="" selected disabled>Select Medicine Type</option>
+                      <ng-container *ngIf="selectedMedicineType">
+                        <option [value]="type.type" *ngFor="let type of selectedMedicineType">{{ type.type }}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="number" formControlName="quantity" [placeholder]="selectedMedicine ? 'Quantity Max('+selectedMedicine.quantity+')' : 'Select Medicine'" class="form-control" />
+                  </div>
+                  <div class="col-md-3">
+                    <textarea formControlName="description" class="form-control" placeholder="Description" rows="1"></textarea>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+          </form>
+
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>

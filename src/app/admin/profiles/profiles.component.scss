@@ -1,0 +1,28 @@
+.row,
+.col-md-5,
+.col-md-12 {
+  margin: 1rem auto;
+}
+
+.row{
+  padding: 1rem;
+}
+
+.col-md-5, .col-md-12 {
+  max-height: 30rem;
+  overflow: auto;
+  padding: 1rem;
+  box-shadow: 0.1rem 0.3rem 0.3rem rgba($color: #000000, $alpha: 0.3),
+    -0.1rem -0.3rem 0.3rem rgba($color: #000000, $alpha: 0.3);
+  border-radius: 1rem;
+  background: linear-gradient(to right, rgb(255, 239, 186), rgb(255, 255, 255));
+}
+
+.col-md-12{
+  max-height: 50rem;
+  overflow: auto;
+}
+
+.col-md-2{
+  margin: 0.5rem auto;
+}

@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<main>
+  <div class="row full-row">
+    <div class="col-md-4">
+      <div class="container">
+        <div class="row custom-row">
+          <button
+            [class]="post === 'receptionist' ? 'active' : ''"
+            (click)="onChangePost('receptionist')"
+          >
+            Receptionist
+          </button>
+          <button
+            [class]="post === 'doctor' ? 'active' : ''"
+            (click)="onChangePost('doctor')"
+          >
+            Doctor
+          </button>
+          <button
+            [class]="post === 'admin' ? 'active' : ''"
+            (click)="onChangePost('admin')"
+          >
+            Admin
+          </button>
+        </div>
+        <form class="form-group" (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <h4 class="text-center">Login as</h4>
+          <br />
+          <input
+            ngModel
+            name="email"
+            type="email"
+            class="form-control"
+            placeholder="Enter Email"
+            required
+            email
+          />
+          <br />
+          <input
+            ngModel
+            name="password"
+            type="password"
+            class="form-control"
+            placeholder="Enter Password"
+            required
+            password
+          />
+          <br />
+          <p *ngIf="message" class="alert alert-danger" role="alert">
+            {{ message }}
+          </p>
+          <input
+            type="submit"
+            value="Login"
+            [disabled]="!f.valid"
+            class="btn btn-primary"
+          />
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8"></div>
+  </div>
+</main>

@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+<main>
+  <div class="col-12">
+    <h3 class="text-center">Welcome</h3>
+    <p class="text-center">Please enter your credentials to proceed</p>
+    <div class="container">
+      <div class="col-md-6">
+        <form class="form-group" (ngSubmit)="onSignUp(form)" #form="ngForm">
+          <h4 class="text-center">Sign Up</h4>
+          <input
+            type="email"
+            name="email"
+            email
+            required
+            ngModel
+            placeholder="Enter Email*"
+            class="form-control"
+          />
+          <br />
+          <input
+            type="text"
+            name="name"
+            required
+            ngModel
+            placeholder="Enter Name*"
+            class="form-control"
+          />
+          <br />
+          <span>Enter Date Of Birth</span>
+          <input
+            type="date"
+            name="dob"
+            required
+            ngModel
+            placeholder="Enter Date Of Birth"
+            class="form-control"
+          />
+          <br />
+          <select name="gender" required ngModel class="form-control">
+            <option value="" disabled selected>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <br />
+          <input
+            type="tel"
+            name="mobile"
+            ngModel
+            required
+            placeholder="Enter Mobile Number*"
+            class="form-control"
+          />
+          <br />
+          <textarea
+            name="address"
+            rows="3"
+            class="form-control"
+            required
+            ngModel
+            placeholder="Enter Address"
+          ></textarea>
+          <br />
+          <input
+            type="password"
+            name="password"
+            minlength="8"
+            ngModel
+            required
+            placeholder="Enter Password* (Minimum 8 characters)"
+            class="form-control"
+            #pass
+            (keyup)="onVerifyPass(pass, cpass)"
+          />
+          <br />
+          <input
+            type="password"
+            name="confirm-password"
+            minlength="8"
+            ngModel
+            required
+            placeholder="Confirm Password* (Minimum 8 characters)"
+            class="form-control"
+            #cpass
+            (keyup)="onVerifyPass(pass, cpass)"
+          />
+          <br />
+          <div *ngIf="!passwordMatched">
+            <div class="alert alert-danger">Passwords don't match!</div>
+            <br />
+          </div>
+          <input *ngIf="passwordMatched" type="submit" value="Sign Up" class="btn btn-primary" [disabled]="(!form.valid )" />
+          <br />
+          <br />
+          <p class="text-center">
+            <em
+              >Already have an account?
+              <a href="#" [routerLink]="['/login']">Login</a> here</em
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

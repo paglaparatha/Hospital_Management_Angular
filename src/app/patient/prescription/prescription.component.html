@@ -1,0 +1,36 @@
+<main>
+  <ng-container *ngIf="appId">
+    <div class="container">
+      <ng-container *ngIf="prescription">
+        <h2 class="text-center">Prescription for Patient Id {{ prescription.patientId }}</h2>
+        <h4 class="text-center">Dr. {{ prescription.doctorName }}</h4>
+        <p class="text-center">{{ prescription.date }}</p>
+
+        <table id="customers">
+          <thead>
+            <tr>
+              <th>Medicine</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pres of prescription.prescriptions">
+              <td>{{pres.name}}</td>
+              <td>{{pres.type}}</td>
+              <td>{{pres.quantity}}</td>
+              <td>{{pres.description}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <h4 class="text-left">
+          <br>
+          Total: {{ prescription.fees }}
+        </h4>
+
+      </ng-container>
+    </div>
+  </ng-container>
+</main>

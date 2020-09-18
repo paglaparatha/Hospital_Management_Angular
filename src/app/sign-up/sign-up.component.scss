@@ -1,0 +1,16 @@
+.col-12{
+  min-height: 92vh;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(251, 249, 237, 0.5) 0%, rgba(251, 234, 248, 0.5) 100%), url(/assets/doctor.jpg) no-repeat center center/cover;
+  padding: 1rem;
+
+  .container{
+    .col-md-6{
+      padding: 1rem;
+      margin: 2rem auto;
+      background: linear-gradient(to right, rgba(18, 194, 233, 0.3), rgba(196, 113, 237, 0.3), rgba(246, 79, 89, 0.3));
+      border-radius: 1rem;
+      box-shadow: 0.1rem 0.3rem 0.3rem rgba($color: #000000, $alpha: 0.3);
+    }
+  }
+}

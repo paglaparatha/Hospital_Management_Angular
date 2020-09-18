@@ -1,0 +1,171 @@
+<main>
+  <div class="col-lg-12">
+    <ng-container *ngIf="user">
+      <h2 class="text-center">Welcome {{ user.name }}</h2>
+      <div class="row row1">
+
+        <div class="col-md-4">
+          <h4 class="text-center">
+            My Profile <fa-icon [icon]="faUser"></fa-icon>
+          </h4>
+          <hr />
+          <ul class="list-group">
+            <li class="list-group-item">
+              <img [src]="upload + user.image" alt="" class="img" />
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Id:</strong></div>
+                <div class="col-8"><address>{{ user.id }}</address></div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Name:</strong></div>
+                <div class="col-8">{{ user.name }}</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>D.O.B.:</strong></div>
+                <div class="col-8">{{ user.dob | date }}</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Age:</strong></div>
+                <div class="col-8">{{ user.age }}</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Email:</strong></div>
+                <div class="col-8">{{ user.email }}</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Gender:</strong></div>
+                <div class="col-8">{{ user.gender }}</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Contact:</strong></div>
+                <div class="col-8">{{ user.mobile }}</div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-4"><strong>Address:</strong></div>
+                <div class="col-8"><address>{{ user.address }}</address></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-7">
+          <form class="form-group" (ngSubmit)="onAddAppointment(f)" #f="ngForm">
+            <h4 class="text-center">Make an Appointment <fa-icon [icon]="faCalendar"></fa-icon></h4>
+            <hr>
+            <span>Enter Date</span>
+            <input type="date" name="date" [min]="today" ngModel required placeholder="Enter Date" class="form-control">
+            <br>
+            <span>Enter Time</span>
+            <input type="time" name="time" ngModel required placeholder="Enter Time" class="form-control" (change)="onGetDoctors(post.value, time.value)" #time>
+            <br>
+            <select name="postId" required ngModel class="form-control" (change)="onGetDoctors(post.value, time.value)" #post>
+              <ng-container *ngIf="time.value; else askTime">
+                <option value="" selected disabled>Select Doctor Specialization</option>
+                <option *ngFor="let post of doctorSpecialization" [value]="post.id">{{post.name}}</option>
+              </ng-container>
+              <ng-template #askTime>
+                <option value="" selected disabled>Please select Time first</option>
+              </ng-template>
+            </select>
+            <br>
+            <p class="alert alert-warning" role="alert" *ngIf="post.value != ''">{{ onGetPostDesc(post.value) }}</p>
+            <select name="doctorId" required ngModel class="form-control" #doc>
+              <option value="" disabled selected>Select Doctor</option>
+              <ng-container *ngIf="postDoctors && postDoctors.length > 0">
+                <option *ngFor="let doctor of postDoctors" [value]="doctor.id">{{doctor.name}}</option>
+              </ng-container>
+            </select>
+            <br>
+            <p class="alert alert-warning" role="alert" *ngIf="doc.value != ''">{{ onGetDoctor(doc.value) }}</p>
+            <span>If provided, they'll be visible to the doctor to better diagnose you.</span>
+            <textarea name="remarks" rows="3" ngModel placeholder="Enter Remarks" class="form-control"></textarea>
+            <br>
+            <input type="submit" value="Book Appointment" class="btn btn-primary" [disabled]="!f.valid">
+          </form>
+        </div>
+
+        <div class="col-md-12">
+          <h4 class="text-center">My Appointments <fa-icon [icon]="faCalendarAlt"></fa-icon></h4>
+          <hr>
+          <div class="row row1" *ngIf="appointments">
+
+            <div class="col-md-2">
+              <h4 class="text-center">Past</h4>
+              <hr>
+              <ul class="list-group" *ngIf="pastAppointments.length > 0; else noAppointment" >
+                <div class="alert alert-warning" role="alert" *ngFor="let app of pastAppointments" [routerLink]="app.confirmed == 2 ? ['../prescription', app.id] : ['.']">
+                  Appointment with Dr. {{app.doctorName}} <br> <strong>Date: </strong>{{app.date | date}} <br> <strong>Time:</strong> {{ app.time }}
+                  <br>{{ app.remarks != '' ? 'Remarks: '+app.remarks  : '' }}
+                </div>
+              </ul>
+            </div>
+
+            <div class="col-md-2">
+              <h4 class="text-center">Today</h4>
+              <hr>
+              <ul class="list-group" *ngIf="currentAppointments.length > 0; else noAppointment" >
+                <div class="alert alert-success" role="alert" *ngFor="let app of currentAppointments" [routerLink]="app.confirmed == 2 ? ['../prescription', app.id] : ['.']">
+                  Appointment with Dr. {{app.doctorName}} <br> <strong>Date: </strong>{{app.date | date}} <br> <strong>Time:</strong> {{ app.time }}
+                  <br>{{ app.remarks != '' ? 'Remarks: '+app.remarks  : '' }}
+                </div>
+              </ul>
+            </div>
+
+            <div class="col-md-2">
+              <h4 class="text-center">Upcoming</h4>
+              <hr>
+              <ul class="list-group" *ngIf="upcomingAppointments.length > 0; else noAppointment" >
+                <div class="alert alert-primary" role="alert" *ngFor="let app of upcomingAppointments">
+                  Appointment with Dr. {{app.doctorName}} <br> <strong>Date: </strong>{{app.date | date}} <br> <strong>Time:</strong> {{ app.time }}
+                  <br>{{ app.remarks != '' ? 'Remarks: '+app.remarks  : '' }}
+                </div>
+              </ul>
+            </div>
+
+            <div class="col-md-2">
+              <h4 class="text-center">Cancelled</h4>
+              <hr>
+              <ul class="list-group" *ngIf="canceledAppointments.length > 0; else noAppointment" >
+                <div class="alert alert-danger" role="alert" *ngFor="let app of canceledAppointments">
+                  Appointment with Dr. {{app.doctorName}} <br> <strong>Date: </strong>{{app.date | date}} <br> <strong>Time:</strong> {{ app.time }}
+                  <br>{{ app.remarks != '' ? 'Remarks: '+app.remarks  : '' }}
+                </div>
+              </ul>
+            </div>
+
+            <div class="col-md-2">
+              <h4 class="text-center">Pending</h4>
+              <hr>
+              <ul class="list-group" *ngIf="pendingAppointments.length > 0; else noAppointment" >
+                <div class="alert alert-info" role="alert" *ngFor="let app of pendingAppointments">
+                  Appointment with Dr. {{app.doctorName}} <br> <strong>Date: </strong>{{app.date | date}} <br> <strong>Time:</strong> {{ app.time }}
+                  <br>{{ app.remarks != '' ? 'Remarks: '+app.remarks  : '' }}
+                </div>
+              </ul>
+            </div>
+
+            <ng-template #noAppointment>
+              <b class="text-center">No Appointments to show..</b>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</main>

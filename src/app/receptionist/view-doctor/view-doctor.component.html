@@ -1,0 +1,34 @@
+<ng-container *ngIf="user">
+  <div class="container">
+    <h2 class="text-center">Dr. {{ user.name }}</h2>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Name:&nbsp;</strong>{{ user.name }}
+      </li>
+      <li class="list-group-item">
+        <strong>Email:&nbsp;</strong><a href="mailto:{{ user.email }}">{{ user.email }}</a>
+      </li>
+      <li class="list-group-item">
+        <strong>Gender:&nbsp;</strong>{{ user.gender | uppercase}}
+      </li>
+      <li class="list-group-item">
+        <strong>Qualification:&nbsp;</strong>{{ user.post }}
+      </li>
+      <li class="list-group-item">
+        <strong>Fees:&nbsp;</strong>₹{{ user.fees }}
+      </li>
+      <li class="list-group-item">
+        <strong>Mobile:&nbsp;</strong><a href="tel:{{ user.mobile }}">{{ user.mobile }}</a>
+      </li>
+      <li class="list-group-item">
+        <strong>Experience:&nbsp;</strong>{{ user.experience }}
+      </li>
+      <li class="list-group-item">
+        <strong>Opening Time:&nbsp;</strong>{{ user.open_time}}
+      </li>
+      <li class="list-group-item">
+        <strong>Closing Time:&nbsp;</strong>{{ user.close_time}}
+      </li>
+    </ul>
+  </div>
+</ng-container>

@@ -1,0 +1,17 @@
+.col-md-5 {
+  margin: 1rem auto;
+  border-top: 4px solid firebrick;
+  border-radius: 1.5rem;
+  background: linear-gradient(
+    to right,
+    rgba(252, 70, 107, 0.3),
+    rgba(63, 94, 251, 0.3)
+  );
+  padding: 1rem;
+  max-height: 50rem;
+  overflow: auto;
+  &:hover {
+    box-shadow: 0.2rem 0.2rem 0.3rem rgba($color: #000000, $alpha: 0.3),
+      -0.2rem -0.2rem 0.3rem rgba($color: #000000, $alpha: 0.3);
+  }
+}
